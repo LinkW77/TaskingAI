@@ -1,0 +1,8 @@
+bundle_name: "PDF Generator"
+bundle_description: "Generate PDF from markdown"
+generate_pdf_input_md_content_name: "Markdown Content"
+generate_pdf_input_md_content_description: "Only accept Markdown format text or file"
+generate_pdf_output_results_name: "Results"
+generate_pdf_output_results_description: "The url of the generated PDF"
+generate_pdf_name: "Generate PDF"
+generate_pdf_description: "Convert Markdown to PDF"
