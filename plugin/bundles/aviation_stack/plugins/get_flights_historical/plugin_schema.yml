@@ -1,0 +1,52 @@
+description: i18n:get_flights_historical_description
+id: get_flights_historical
+input_schema:
+  airline_iata:
+    description: i18n:get_flights_historical_input_airline_iata_description
+    name: i18n:get_flights_historical_input_airline_iata_name
+    required: false
+    type: string
+  arr_iata:
+    description: i18n:get_flights_historical_input_arr_iata_description
+    name: i18n:get_flights_historical_input_arr_iata_name
+    required: false
+    type: string
+  dep_iata:
+    description: i18n:get_flights_historical_input_dep_iata_description
+    name: i18n:get_flights_historical_input_dep_iata_name
+    required: false
+    type: string
+  flight_date:
+    description: i18n:get_flights_historical_input_flight_date_description
+    name: i18n:get_flights_historical_input_flight_date_name
+    required: true
+    type: string
+  flight_iata:
+    description: i18n:get_flights_historical_input_flight_iata_description
+    name: i18n:get_flights_historical_input_flight_iata_name
+    required: false
+    type: string
+  limit:
+    description: i18n:get_flights_historical_input_limit_description
+    name: i18n:get_flights_historical_input_limit_name
+    required: false
+    type: integer
+  offset:
+    description: i18n:get_flights_historical_input_offset_description
+    name: i18n:get_flights_historical_input_offset_name
+    required: false
+    type: integer
+name: i18n:get_flights_historical_name
+output_schema:
+  result:
+    description: i18n:get_flights_historical_output_result_description
+    name: i18n:get_flights_historical_output_result_name
+    required: true
+    type: string
+test:
+  cases:
+  - input:
+      arr_iata: PKX
+      flight_date: 2019-02-25
+      limit: 10
+  mode: schema
