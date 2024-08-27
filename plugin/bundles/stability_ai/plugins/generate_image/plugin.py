@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 from app.service.image_storage import save_base64_image_to_s3_or_local
@@ -8,7 +8,9 @@ from config import CONFIG
 
 
 class GenerateImage(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         prompt: str = plugin_input.input_params.get("prompt")
         engine_id: str = plugin_input.input_params.get("engine_id", "stable-diffusion-v1-6")
         steps: int = plugin_input.input_params.get("steps", 30)

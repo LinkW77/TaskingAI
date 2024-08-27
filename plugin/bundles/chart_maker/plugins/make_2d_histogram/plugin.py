@@ -1,15 +1,14 @@
 import base64
-from typing import List
-
+from typing import List, Dict
 from app.service.image_storage import save_base64_image_to_s3_or_local
 from bundle_dependency import *
 import plotly.express as px
 
-from config import CONFIG
-
 
 class Make2DHistogram(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         x_values: List[float] = plugin_input.input_params.get("x_values")
         y_values: List[float] = plugin_input.input_params.get("y_values")
         title: str = plugin_input.input_params.get("title", "2D Histogram")
@@ -28,8 +27,6 @@ class Make2DHistogram(PluginHandler):
         # convert image bytes to base64 string
         base_64_fig = base64.b64encode(bytes_fig).decode("utf-8")
 
-        url = await save_base64_image_to_s3_or_local(
-            base_64_fig, project_id, "png", "chart_maker/make_2d_histogram"
-        )
+        url = await save_base64_image_to_s3_or_local(base_64_fig, project_id, "png", "chart_maker/make_2d_histogram")
 
         return PluginOutput(data={"url": url})

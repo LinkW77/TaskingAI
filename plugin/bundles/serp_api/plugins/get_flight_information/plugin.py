@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 from bundle_dependency import *
@@ -7,7 +7,9 @@ from config import CONFIG
 
 
 class GetFlightInformation(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         SERP_API_API_KEY: str = credentials.credentials.get("SERP_API_API_KEY")
         departure_id: str = plugin_input.input_params.get("departure_id")
         arrival_id: str = plugin_input.input_params.get("arrival_id")

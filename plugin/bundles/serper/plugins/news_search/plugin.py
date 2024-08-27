@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 from bundle_dependency import *
@@ -7,7 +7,9 @@ from config import CONFIG
 
 
 class NewsSearch(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         query: str = plugin_input.input_params.get("query")
         SERPER_API_KEY: str = credentials.credentials.get("SERPER_API_KEY")
 

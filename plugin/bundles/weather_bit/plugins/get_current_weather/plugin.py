@@ -5,10 +5,13 @@ from aiohttp import ClientSession
 
 from bundle_dependency import *
 from config import CONFIG
+from typing import Dict
 
 
 class GetCurrentWeather(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         lat: float = plugin_input.input_params.get("lat")
         lon: float = plugin_input.input_params.get("lon")
         units: str = plugin_input.input_params.get("units", "")

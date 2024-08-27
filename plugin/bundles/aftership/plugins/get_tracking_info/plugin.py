@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 from bundle_dependency import *
@@ -7,7 +7,9 @@ from config import CONFIG
 
 
 class GetTrackingInfo(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         tracking_number: str = plugin_input.input_params.get("tracking_number")
         slug: str = plugin_input.input_params.get("slug")
         aftership_api_key: str = credentials.credentials.get("AFTERSHIP_API_KEY")

@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 
@@ -8,7 +8,9 @@ from config import CONFIG
 
 
 class InternetSearch40216K(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         content: str = plugin_input.input_params.get("content")
         url: str = plugin_input.input_params.get("url", None)
         webpilot_api_key: str = credentials.credentials.get("WEBPILOT_API_KEY")

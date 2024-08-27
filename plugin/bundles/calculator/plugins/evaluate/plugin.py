@@ -1,9 +1,12 @@
 from bundle_dependency import *
 import sympy as sp
+from typing import Dict
 
 
 class Evaluate(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         expression: str = plugin_input.input_params.get("expression")
         try:
             expression = sp.sympify(expression)

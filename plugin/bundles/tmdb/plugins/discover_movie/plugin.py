@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 
@@ -8,7 +8,9 @@ from config import CONFIG
 
 
 class DiscoverMovie(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         language: str = plugin_input.input_params.get("language", "en-US")
         page: int = plugin_input.input_params.get("page", 1)
         primary_release_year: int = plugin_input.input_params.get("primary_release_year", None)

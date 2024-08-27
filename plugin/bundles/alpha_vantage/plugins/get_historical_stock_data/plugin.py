@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 from app.error.error_code import raise_provider_api_error
@@ -7,7 +7,9 @@ from bundle_dependency import *
 
 
 class GetHistoricalStockData(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         symbol: str = plugin_input.input_params.get("symbol")
         interval: str = plugin_input.input_params.get("interval")
         start_date: str = plugin_input.input_params.get("start_date")
@@ -18,22 +20,22 @@ class GetHistoricalStockData(PluginHandler):
         function = ""
         result_key = ""
 
-        if interval.lower() == 'daily':
+        if interval.lower() == "daily":
             function = "TIME_SERIES_DAILY"
             result_key = "Time Series (Daily)"
-        elif interval.lower() == 'weekly':
+        elif interval.lower() == "weekly":
             function = "TIME_SERIES_WEEKLY_ADJUSTED"
             result_key = "Weekly Adjusted Time Series"
-        elif interval.lower() == 'monthly':
+        elif interval.lower() == "monthly":
             function = "TIME_SERIES_MONTHLY_ADJUSTED"
             result_key = "Monthly Adjusted Time Series"
         else:
             raise_http_error(ErrorCode.REQUEST_VALIDATION_ERROR, "Invalid interval")
 
-        url = f'https://www.alphavantage.co/query?function={function}&symbol={symbol}&apikey={alpha_vantage_api_key}'
+        url = f"https://www.alphavantage.co/query?function={function}&symbol={symbol}&apikey={alpha_vantage_api_key}"
 
-        if interval.lower() == 'daily':
-            url += f'&outputsize=full'
+        if interval.lower() == "daily":
+            url += f"&outputsize=full"
 
         async with ClientSession() as session:
             async with session.get(url=url) as response:
@@ -48,18 +50,20 @@ class GetHistoricalStockData(PluginHandler):
                         if end_date and date > end_date:
                             continue
 
-                        refined_results.append({
-                            "date": date,
-                            "open": values['1. open'],
-                            "high": values['2. high'],
-                            "low": values['3. low'],
-                            "close": values['5. adjusted close'] if interval.lower() != 'daily' else values['4. close'],
-                            "volume": values['6. volume'] if interval.lower() != 'daily' else values['5. volume'],
-                        })
+                        refined_results.append(
+                            {
+                                "date": date,
+                                "open": values["1. open"],
+                                "high": values["2. high"],
+                                "low": values["3. low"],
+                                "close": values["5. adjusted close"]
+                                if interval.lower() != "daily"
+                                else values["4. close"],
+                                "volume": values["6. volume"] if interval.lower() != "daily" else values["5. volume"],
+                            }
+                        )
 
-                    return PluginOutput(data={
-                        "result": json.dumps(refined_results)
-                    })
+                    return PluginOutput(data={"result": json.dumps(refined_results)})
                 else:
                     data = await response.json()
                     raise_provider_api_error(json.dumps(data))

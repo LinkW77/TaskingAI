@@ -1,7 +1,7 @@
 import json
 
 from aiohttp import ClientSession
-
+from typing import Dict
 from bundle_dependency import *
 from dateutil import parser
 from dateutil.parser import ParserError
@@ -10,7 +10,9 @@ from config import CONFIG
 
 
 class SearchNewsArticle(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         query: str = plugin_input.input_params.get("query")
         count: int = plugin_input.input_params.get("count", 10)
         from_date: str = plugin_input.input_params.get("from_date", None)

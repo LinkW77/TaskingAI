@@ -1,14 +1,16 @@
 import json
 import xmltodict
 from aiohttp import ClientSession
-
+from typing import Dict
 
 from bundle_dependency import *
 from config import CONFIG
 
 
 class BiomedicalSearch(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         query: str = plugin_input.input_params.get("query")
         pub_year: str = plugin_input.input_params.get("pub_year")
         journal: str = plugin_input.input_params.get("journal")

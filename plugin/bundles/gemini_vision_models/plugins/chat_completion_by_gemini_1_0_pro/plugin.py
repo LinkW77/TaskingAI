@@ -1,17 +1,16 @@
-import base64
 import json
-from io import BytesIO
-
-import aiohttp
-from PIL import Image
+from typing import Dict
 from aiohttp import ClientSession
 
 from app.service.image_load import fetch_image_format, get_image_base64_string
 from bundle_dependency import *
 from config import CONFIG
 
+
 class ChatCompletionByGemini10Pro(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         image_url: str = plugin_input.input_params.get("image_url")
         prompt: str = plugin_input.input_params.get("prompt")
         google_gemini_api_key: str = credentials.credentials.get("GOOGLE_GEMINI_API_KEY")
@@ -51,6 +50,3 @@ class ChatCompletionByGemini10Pro(PluginHandler):
                 else:
                     response_json = await response.json()
                     raise_provider_api_error(json.dumps(response_json))
-
-
-

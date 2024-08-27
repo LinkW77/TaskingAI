@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 
@@ -9,7 +9,9 @@ import xmltodict
 
 
 class ArxivSearch(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         query: str = plugin_input.input_params.get("query")
         max_results: int = (
             plugin_input.input_params.get("max_results") if plugin_input.input_params.get("max_results") else 5

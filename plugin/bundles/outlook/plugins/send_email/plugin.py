@@ -1,4 +1,5 @@
 import smtplib
+from typing import Dict
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from bundle_dependency import *
@@ -6,12 +7,12 @@ from bundle_dependency import *
 
 class SendEmail(PluginHandler):
     async def execute(
-        self, credentials: BundleCredentials, execution_config, plugin_input: PluginInput
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
     ) -> PluginOutput:
-        smtp_server = execution_config.get("smtp_server")
-        smtp_port = execution_config.get("smtp_port")
-        smtp_username = execution_config.get("smtp_username")
-        smtp_password = execution_config.get("smtp_password")
+        smtp_server: str = "smtp-mail.outlook.com"
+        smtp_port: int = 587
+        smtp_username: str = execution_config.get("smtp_username")
+        smtp_password: str = execution_config.get("smtp_password")
 
         body = plugin_input.input_params.get("body")
         recipient_email = plugin_input.input_params.get("recipient_email")

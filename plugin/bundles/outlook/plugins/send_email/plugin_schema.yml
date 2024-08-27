@@ -2,22 +2,12 @@ name: i18n:send_email_name
 description: i18n:send_email_description
 id: send_email
 execution_config_schema:
-  - smtp_server:
-      name: i18n:smtp_server_name
-      description: i18n:smtp_server_description
-      required: true
-      type: string
-  - smtp_port:
-      name: i18n:smtp_port_name
-      description: i18n:smtp_port_description
-      required: true
-      type: integer
-  - smtp_username:
+  smtp_username:
       name: i18n:smtp_username_name
       description: i18n:smtp_username_description
       required: true
       type: string
-  - smtp_password:
+  smtp_password:
       name: i18n:smtp_password_name
       description: i18n:smtp_password_description
       required: true
@@ -45,6 +35,9 @@ output_schema:
     required: true
     type: string
 test:
+  execution_config:
+    smtp_username: "your email address"
+    smtp_password: "your email passwd"
   cases:
   - input:
       recipient_email: "linkwang955@gmail.com"

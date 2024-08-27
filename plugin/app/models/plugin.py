@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Dict, Any, List
+from typing import Any, Dict
 from app.utils import i18n_text
 from enum import Enum
 
@@ -48,7 +48,7 @@ class Plugin(BaseModel):
             plugin_id=plugin_data["id"],
             name=plugin_data["name"] or "",
             description=plugin_data["description"],
-            execution_config_schema=plugin_data.get("execution_config_schema", []),
+            execution_config_schema=plugin_data.get("execution_config_schema", {}),
             input_schema=plugin_data["input_schema"],
             output_schema=plugin_data["output_schema"],
         )

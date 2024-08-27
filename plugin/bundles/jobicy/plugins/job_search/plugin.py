@@ -1,14 +1,16 @@
 import json
 
 from aiohttp import ClientSession
-
+from typing import Dict
 
 from bundle_dependency import *
 from config import CONFIG
 
 
 class JobSearch(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         count: int = plugin_input.input_params.get("count", 50)
         geo: str = plugin_input.input_params.get("geo")
         industry: str = plugin_input.input_params.get("industry")

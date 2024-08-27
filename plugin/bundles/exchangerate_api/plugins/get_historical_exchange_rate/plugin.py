@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 
@@ -7,7 +7,9 @@ from bundle_dependency import *
 
 
 class GetHistoricalExchangeRate(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         base_currency: str = plugin_input.input_params.get("base_currency")
         year: int = plugin_input.input_params.get("year")
         month: int = plugin_input.input_params.get("month")

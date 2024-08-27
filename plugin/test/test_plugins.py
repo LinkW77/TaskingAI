@@ -16,6 +16,7 @@ async def test_plugins(test_data):
     output_schema = test_data["output_schema"]
     bundle_credentials = test_data["bundle_credentials"]
     mode = test_data["mode"]
+    execution_config = test_data["execution_config"]
     input_params = test_data["input"]
     output = test_data["output"]
 
@@ -29,6 +30,8 @@ async def test_plugins(test_data):
             "credentials": bundle_credentials,
             "project_id": "test_project_id",
         }
+        if execution_config:
+            request_data["execution_config"] = execution_config
 
         error_data_to_print = {
             "bundle_id": bundle_id,

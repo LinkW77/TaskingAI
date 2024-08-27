@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 
@@ -8,7 +8,9 @@ from config import CONFIG
 
 
 class BookSearch(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         query: str = plugin_input.input_params.get("query")
         earliest_year: int = plugin_input.input_params.get("earliest_year", None)
         latest_year: int = plugin_input.input_params.get("latest_year", None)

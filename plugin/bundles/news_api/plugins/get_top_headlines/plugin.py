@@ -5,10 +5,13 @@ from aiohttp import ClientSession
 
 from bundle_dependency import *
 from config import CONFIG
+from typing import Dict
 
 
 class GetTopHeadlines(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         country: str = plugin_input.input_params.get("country")
         category: str = plugin_input.input_params.get("category")
         count: int = plugin_input.input_params.get("count", 10)

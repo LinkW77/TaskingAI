@@ -1,8 +1,7 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
-import base64
 from app.service.image_storage import save_url_image_to_s3_or_local
 
 from bundle_dependency import *
@@ -10,7 +9,9 @@ from config import CONFIG
 
 
 class GenerateImage(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         prompt: str = plugin_input.input_params.get("prompt")
         openai_api_key: str = credentials.credentials.get("OPENAI_API_KEY")
         project_id: str = plugin_input.project_id

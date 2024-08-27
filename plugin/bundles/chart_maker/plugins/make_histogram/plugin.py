@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 import base64
 from app.service.image_storage import save_base64_image_to_s3_or_local
@@ -6,11 +6,11 @@ from app.service.image_storage import save_base64_image_to_s3_or_local
 from bundle_dependency import *
 import plotly.express as px
 
-from config import CONFIG
-
 
 class MakeHistogram(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         values: List[str] = plugin_input.input_params.get("values")
         title: str = plugin_input.input_params.get("title", "Histogram")
         x_title: str = plugin_input.input_params.get("x_title", "x")
@@ -25,8 +25,6 @@ class MakeHistogram(PluginHandler):
         # convert image bytes to base64 string
         base_64_fig = base64.b64encode(bytes_fig).decode("utf-8")
 
-        url = await save_base64_image_to_s3_or_local(
-            base_64_fig, project_id, "png", "chart_maker/make_histogram"
-        )
+        url = await save_base64_image_to_s3_or_local(base_64_fig, project_id, "png", "chart_maker/make_histogram")
 
         return PluginOutput(data={"url": url})

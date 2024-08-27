@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 
@@ -8,7 +8,9 @@ from config import CONFIG
 
 
 class GetLatestCoinData(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         symbol: str = plugin_input.input_params.get("symbol")
         coin_market_cap_api_key: str = credentials.credentials.get("COIN_MARKET_CAP_API_KEY")
 

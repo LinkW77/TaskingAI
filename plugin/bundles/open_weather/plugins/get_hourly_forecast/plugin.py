@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 
@@ -7,7 +7,9 @@ from bundle_dependency import *
 
 
 class GetHourlyForecast(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         lat: float = plugin_input.input_params.get("lat", 0)
         lon: float = plugin_input.input_params.get("lon", 0)
         hours: int = plugin_input.input_params.get("hours", 24)

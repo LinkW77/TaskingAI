@@ -1,15 +1,15 @@
 import base64
 from io import BytesIO
-
+from typing import Dict
 from app.service.image_storage import save_base64_image_to_s3_or_local
 from bundle_dependency import *
 import qrcode
 
-from config import CONFIG
-
 
 class GenerateQrCode(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         text: str = plugin_input.input_params.get("text")
         img = qrcode.make(text)
 

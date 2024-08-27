@@ -1,0 +1,62 @@
+name: i18n:get_mail_list_name
+description: i18n:get_mail_list_description
+id: get_mail_list
+execution_config_schema:
+  email_username:
+    name: i18n:email_username_name
+    description: i18n:email_username_description
+    required: true
+    type: string
+  email_password:
+    name: i18n:email_password_name
+    description: i18n:email_password_description
+    required: true
+    type: string
+input_schema:
+  folder:
+    description: i18n:folder_description
+    name: i18n:folder_name
+    required: true
+    type: string
+  after:
+    description: i18n:after_description
+    name: i18n:after_name
+    required: false
+    type: string
+  before:
+    description: i18n:before_description
+    name: i18n:before_name
+    required: false
+    type: string
+  from_who:
+    description: i18n:from_who_description
+    name: i18n:from_who_name
+    required: false
+    type: string
+  keywords:
+    description: i18n:keywords_description
+    name: i18n:keywords_name
+    required: false
+    type: string
+  count:
+    description: i18n:count_description
+    name: i18n:count_name
+    required: false
+    type: integer
+
+output_schema:
+  result:
+    description: i18n:get_mail_list_output_result_description
+    name: i18n:get_mail_list_output_result_name
+    required: true
+    type: string
+test:
+  execution_config:
+    email_username: "your email address"
+    email_password: "your email app passwd"
+
+  cases:
+  - input:
+      folder: "Inbox"
+
+  mode: schema

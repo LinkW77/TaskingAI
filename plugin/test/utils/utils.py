@@ -55,6 +55,8 @@ def generate_test_cases():
         bundle_yaml_data = load_yaml(bundle_schema_path)
 
         bundle_id = bundle_dir_name
+        if bundle_id != "gmail":
+            continue
         bundle_credentials = [name for name in bundle_yaml_data.get("credentials_schema", {}).keys()]
 
         bundle_plugins_path = os.path.join(bundle_dir_path, "plugins")
@@ -72,6 +74,7 @@ def generate_test_cases():
 
             output_schema = plugin_yaml_data.get("output_schema", {})
             test_info = plugin_yaml_data.get("test", {})
+            execution_config = test_info.get("execution_config", None)
             mode = test_info.get("mode", "schema")
             test_cases = test_info.get("cases", {})
 
@@ -85,6 +88,7 @@ def generate_test_cases():
                         "output_schema": output_schema,
                         "mode": mode,
                         "input": test_case.get("input", {}),
+                        "execution_config": execution_config,
                         "output": test_case.get("output", {}),
                     }
                 )

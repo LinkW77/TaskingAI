@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 from aiohttp import ClientSession
 
 
@@ -10,7 +10,9 @@ class GetCurrentWeather(PluginHandler):
     def celsius_to_fahrenheit(self, celsius: float) -> float:
         return (celsius * 9 / 5) + 32
 
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         lat: float = plugin_input.input_params.get("lat", 0)
         lon: float = plugin_input.input_params.get("lon", 0)
 

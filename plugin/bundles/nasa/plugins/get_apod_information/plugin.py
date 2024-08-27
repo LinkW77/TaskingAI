@@ -2,10 +2,13 @@ import json
 from aiohttp import ClientSession
 from bundle_dependency import *
 from config import CONFIG
+from typing import Dict
 
 
 class GetApodInformation(PluginHandler):
-    async def execute(self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput) -> PluginOutput:
+    async def execute(
+        self, credentials: BundleCredentials, execution_config: Dict, plugin_input: PluginInput
+    ) -> PluginOutput:
         NASA_API_KEY: str = credentials.credentials.get("NASA_API_KEY")
         input_params = plugin_input.input_params or {}
 
