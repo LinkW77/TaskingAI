@@ -17,7 +17,7 @@ async def split_markdown_to_objects_preserve_order(markdown_content):
     import re
 
     # Define regex pattern for extracting text and images
-    pattern = re.compile(r"(!\[.*?\]\(.*?\))|([^!]+)", re.MULTILINE)
+    pattern = re.compile(rf"(!\[{CONFIG.IMAGE_URL_PREFIX}.*?\]\(.*?\))|([^!]+)", re.MULTILINE)
 
     # Find all matches
     matches = pattern.findall(markdown_content)
@@ -27,7 +27,7 @@ async def split_markdown_to_objects_preserve_order(markdown_content):
 
     for match in matches:
         if match[0]:  # This is an image
-            image_url = re.findall(r"!\[.*?\]\((.*?)\)", match[0])[0]
+            image_url = re.findall(rf"!\[{CONFIG.IMAGE_URL_PREFIX}.*?\]\((.*?)\)", match[0])[0]
             image_format = await fetch_image_format(image_url)
             base64_string = await get_image_base64_string(image_url)
             result.append(
